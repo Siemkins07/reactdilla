@@ -11,7 +11,7 @@ class App extends Component {
     gameStarted: false,
     playerName: '',
     gameDuration: '',
-    dayNumber: '',
+    dayNumber: 0,
     health: 100,
     isAlive: true,
     locations: [
@@ -45,48 +45,72 @@ class App extends Component {
     members: []
 
   }
+
   componentDidMount() {
-    console.log('mount App');
-    console.log(this.state.gameStarted);
   }
 
   resetLocation = () => {
     const locations = this.state.locations.map(location => location.isActive = false)
     this.setState({locations})
-
   }
 
-handleChangeLocation = (id) => {
-  this.resetLocation()
-  console.log(id);
-  const locations = this.state.locations.map(location => {
-    if (id === location.id) {
-      location.isActive = !location.isActive
-    }
-    return location
-  })
-  this.setState({locations})
-}
-
-
-handleGameDuration = e => {
-this.setState({gameDuration: e.target.value})
-}
-
-setPlayerName = e => {
-  e.preventDefault()
-  this.setState({playerName: e.target.value})
-}
-
-handleStartGame = () => {
-  if (this.state.playerName.length >= 3 && this.state.gameDuration) {
-    // alert(`Your name is now ${this.state.playerName} and you pick a game for ${this.state.gameDuration} `)
-    this.setState({
-      gameStarted: !this.state.gameStarted
+  resetMsgStatus = () => {  
+    const messages = this.state.messages.map(message => {
+      if (message.isShown === true) {
+      message.isShown = false
+      } return message
     })
+    this.setState({messages})
+  }
+
+  handleChangeLocation = id => {
+    this.resetLocation();
+    this.resetMsgStatus();
+    this.handleShowMessage();
+    const locations = this.state.locations.map(location => {
+      if (id === location.id) {
+        location.isActive = !location.isActive
+      }
+      return location
+    })
+    this.setState({locations})
+    this.setState({dayNumber: this.state.dayNumber + 1})
+  }
+
+  //if you want see messages more often change condition to >= 2 or even >1 
+  handleShowMessage = () => {
+    const randomNumber = Math.floor(Math.random()*1000)
+    const moduloResult = randomNumber % 5
+    if( moduloResult > 3 ) {
+      const randomMsg = Math.floor(Math.random() * this.state.messages.length) + 1
+      const messages = this.state.messages.map(message => {
+        if (randomMsg === message.id) {
+          message.isShown = true
+        }
+        return message
+      })
+      this.setState({messages})
+      }
+  }
+
+  handleGameDuration = e => {
+  this.setState({gameDuration: e.target.value})
+  }
+
+  setPlayerName = e => {
+    e.preventDefault()
+    this.setState({playerName: e.target.value})
+  }
+
+  handleStartGame = () => {
+    if (this.state.playerName.length >= 3 && this.state.gameDuration) {
+      // alert(`Your name is now ${this.state.playerName} and you pick a game for ${this.state.gameDuration} `)
+      this.setState({
+        gameStarted: !this.state.gameStarted
+      })
     }
-    else return alert('nie badź leń')
-}
+    else return alert(`don't be pussy`)
+  }
 
   render() {
 
@@ -108,6 +132,11 @@ handleStartGame = () => {
         changeLocation={this.handleChangeLocation}
         />}
         {this.state.gameStarted && <MessageCenter
+        name={this.state.playerName}
+        duration={this.state.gameDuration}
+        day={this.state.dayNumber}
+        randomMessage={this.handleShowMessage}
+        messages={this.state.messages}
         />}
     
       </div>
