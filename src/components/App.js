@@ -2,7 +2,8 @@ import '../App.css';
 import React, { Component } from 'react';
 import NewGame from './NewGame';
 import Locations from './Locations';
-import MessageCenter from './MessageCenter'
+import MessageCenter from './MessageCenter';
+import YourAllItems from './YourAllItems';
 
 
 class App extends Component {
@@ -23,16 +24,16 @@ class App extends Component {
       {id: 6, name:'loca_6', isActive: false},
     ],
     items: [
-      {id: 1, name: 'item_1', isOwn: true},
-      {id: 2, name: 'item_2', isOwn: false},
-      {id: 3, name: 'item_3', isOwn: false},
-      {id: 4, name: 'item_4', isOwn: false},
-      {id: 5, name: 'item_5', isOwn: false},
-      {id: 6, name: 'item_6', isOwn: false},
-      {id: 7, name: 'item_7', isOwn: false},
-      {id: 8, name: 'item_8', isOwn: false},
-      {id: 9, name: 'item_9', isOwn: false},
-      {id: 10, name: 'item_10', isOwn: false},
+      {id: 1, name: 'item_1', amount: 0, isOwn: true},
+      {id: 2, name: 'item_2', amount: 0, isOwn: false},
+      {id: 3, name: 'item_3', amount: 0, isOwn: false},
+      {id: 4, name: 'item_4', amount: 0, isOwn: false},
+      {id: 5, name: 'item_5', amount: 0, isOwn: false},
+      {id: 6, name: 'item_6', amount: 0, isOwn: false},
+      {id: 7, name: 'item_7', amount: 0, isOwn: false},
+      {id: 8, name: 'item_8', amount: 0, isOwn: false},
+      {id: 9, name: 'item_9', amount: 0, isOwn: false},
+      {id: 10, name: 'item_10', amount: 0, isOwn: false},
     ],
     messages: [
       {id: 1, copy: 'message_1', isShown: false},
@@ -50,7 +51,11 @@ class App extends Component {
   }
 
   resetLocation = () => {
-    const locations = this.state.locations.map(location => location.isActive = false)
+    const locations = this.state.locations.map(location => {
+      if (location.isActive === true) {
+        location.isActive = false
+      } return location
+    })
     this.setState({locations})
   }
 
@@ -73,15 +78,21 @@ class App extends Component {
       }
       return location
     })
-    this.setState({locations})
-    this.setState({dayNumber: this.state.dayNumber + 1})
+    this.setState({locations, dayNumber: this.state.dayNumber + 1})
   }
 
-  //if you want see messages more often change condition to >= 2 or even >1 
+  handleAmountChange = (item) => {
+    const items = [...this.state.items]
+    const index = items.indexOf(item)
+    items[index] = {...item}
+    items[index].amount ++
+    this.setState({items})
+  }
+
+  //if you want see messages more often change condition to >= 3 
   handleShowMessage = () => {
-    const randomNumber = Math.floor(Math.random()*1000)
-    const moduloResult = randomNumber % 5
-    if( moduloResult > 3 ) {
+    const randomNumber = Math.floor(Math.random()* 6 + 1)
+    if( randomNumber > 4 ) {
       const randomMsg = Math.floor(Math.random() * this.state.messages.length) + 1
       const messages = this.state.messages.map(message => {
         if (randomMsg === message.id) {
@@ -104,10 +115,7 @@ class App extends Component {
 
   handleStartGame = () => {
     if (this.state.playerName.length >= 3 && this.state.gameDuration) {
-      // alert(`Your name is now ${this.state.playerName} and you pick a game for ${this.state.gameDuration} `)
-      this.setState({
-        gameStarted: !this.state.gameStarted
-      })
+      this.setState({gameStarted: !this.state.gameStarted})
     }
     else return alert(`don't be pussy`)
   }
@@ -131,6 +139,7 @@ class App extends Component {
         locations={locations}
         changeLocation={this.handleChangeLocation}
         />}
+
         {this.state.gameStarted && <MessageCenter
         name={this.state.playerName}
         duration={this.state.gameDuration}
@@ -138,6 +147,13 @@ class App extends Component {
         randomMessage={this.handleShowMessage}
         messages={this.state.messages}
         />}
+
+        {this.state.gameStarted && <YourAllItems
+        items={this.state.items}
+        addOneItem={this.handleAmountChange}
+        />}
+
+
     
       </div>
     );
