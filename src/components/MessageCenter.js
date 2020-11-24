@@ -7,6 +7,7 @@ const MessageCenter = (props) => {
     Get to work !!`
   const dayMessage = `Day ${props.day}. Another day has come you will waste. How will you fail today, hmm?`
   const displayMessage = props.messages.filter(m => m.isShown === true)
+  console.log(displayMessage);
     
     return ( 
     <div>
