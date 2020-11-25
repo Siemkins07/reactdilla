@@ -17,6 +17,7 @@ class App extends Component {
     health: 100,
     isAlive: true,
     money: 100,
+    numbersOfItmesToBuyId: [],
     locations: [
       {id: 1, name:'loca_1', isActive: false}, 
       {id: 2, name:'loca_2', isActive: false},
@@ -38,26 +39,26 @@ class App extends Component {
       {id: 10, name: 'item_10', amount: 0, canBeSold: false, cost: 105},
     ],
     itemsToBuy: [
-      {id: 1, name: 'item_1', amount: 0, canBeBuy: true, cost: 1},
-      {id: 2, name: 'item_2', amount: 0, canBeBuy: false, cost: 2},
-      {id: 3, name: 'item_3', amount: 0, canBeBuy: false, cost: 3},
-      {id: 4, name: 'item_4', amount: 0, canBeBuy: false, cost: 4},
-      {id: 5, name: 'item_5', amount: 0, canBeBuy: false, cost: 5},
-      {id: 6, name: 'item_6', amount: 0, canBeBuy: false, cost: 6},
-      {id: 7, name: 'item_7', amount: 0, canBeBuy: false, cost: 7},
-      {id: 8, name: 'item_8', amount: 0, canBeBuy: false, cost: 8},
-      {id: 9, name: 'item_9', amount: 0, canBeBuy: false, cost: 9},
-      {id: 10, name: 'item_10', amount: 0, canBeBuy: false, cost: 105},
-      {id: 11, name: 'item_11', amount: 0, canBeBuy: true, cost: 1},
-      {id: 12, name: 'item_12', amount: 0, canBeBuy: false, cost: 2},
-      {id: 13, name: 'item_13', amount: 0, canBeBuy: false, cost: 3},
-      {id: 14, name: 'item_14', amount: 0, canBeBuy: false, cost: 4},
-      {id: 15, name: 'item_15', amount: 0, canBeBuy: false, cost: 5},
-      {id: 16, name: 'item_16', amount: 0, canBeBuy: false, cost: 6},
-      {id: 17, name: 'item_17', amount: 0, canBeBuy: false, cost: 7},
-      {id: 18, name: 'item_18', amount: 0, canBeBuy: false, cost: 8},
-      {id: 19, name: 'item_19', amount: 0, canBeBuy: false, cost: 9},
-      {id: 20, name: 'item_20', amount: 0, canBeBuy: false, cost: 105},
+      {id: 1, name: 'item_1', canBeBuy: true, cost: 1},
+      {id: 2, name: 'item_2', canBeBuy: false, cost: 2},
+      {id: 3, name: 'item_3', canBeBuy: false, cost: 3},
+      {id: 4, name: 'item_4', canBeBuy: false, cost: 4},
+      {id: 5, name: 'item_5', canBeBuy: false, cost: 5},
+      {id: 6, name: 'item_6', canBeBuy: false, cost: 6},
+      {id: 7, name: 'item_7', canBeBuy: false, cost: 7},
+      {id: 8, name: 'item_8', canBeBuy: false, cost: 8},
+      {id: 9, name: 'item_9', canBeBuy: false, cost: 9},
+      {id: 10, name: 'item_10', canBeBuy: false, cost: 105},
+      {id: 11, name: 'item_11', canBeBuy: true, cost: 1},
+      {id: 12, name: 'item_12', canBeBuy: false, cost: 2},
+      {id: 13, name: 'item_13', canBeBuy: false, cost: 3},
+      {id: 14, name: 'item_14', canBeBuy: false, cost: 4},
+      {id: 15, name: 'item_15', canBeBuy: false, cost: 5},
+      {id: 16, name: 'item_16', canBeBuy: false, cost: 6},
+      {id: 17, name: 'item_17', canBeBuy: false, cost: 7},
+      {id: 18, name: 'item_18', canBeBuy: false, cost: 8},
+      {id: 19, name: 'item_19', canBeBuy: false, cost: 9},
+      {id: 20, name: 'item_20', canBeBuy: false, cost: 105},
     ],
     messages: [
       {id: 1, copy: 'message_1', isShown: false},
@@ -74,6 +75,7 @@ class App extends Component {
   componentDidMount() {
   }
 
+  //RESET FUNCTIONS
   resetLocation = () => {
     const locations = this.state.locations.map(location => {
       if (location.isActive === true) {
@@ -92,6 +94,17 @@ class App extends Component {
     })
     this.setState({messages})
   }
+
+  resetItemsToBuy = () => {
+    this.setState({numbersOfItmesToBuyId: []})}
+
+  resetCanBeBuy = () => {
+    const itemsToBuy = this.state.itemsToBuy.map(item => {
+      if (item.canBeBuy === true) {
+        item.canBeBuy = false
+      } return item  
+    })  
+      this.setState({itemsToBuy})}
 
   handleChangeLocation = id => {
     this.resetLocation();
@@ -157,7 +170,6 @@ class App extends Component {
   handleShowMessage = () => {
     this.resetMsgStatus();
     const randomNumber = Math.floor(Math.random()* 6) + 1
-    // console.log(randomNumber);
     if( randomNumber > 4 ) {
       const randomMsg = Math.floor(Math.random() * this.state.messages.length) + 1
       const messages = this.state.messages.map(message => {
@@ -169,6 +181,26 @@ class App extends Component {
       this.setState({messages})
     }
   }
+
+  handleCanBeBuyItemsId = () => {
+    this.resetItemsToBuy();
+    this.resetCanBeBuy();
+    const numberOfItems = this.state.itemsToBuy.length
+    const displayItemsNumber = Math.floor(Math.random() * 10 + 1)  
+    const numbersOfItmesToBuyId = [...this.state.numbersOfItmesToBuyId]
+    const itemsToBuy = [...this.state.itemsToBuy]
+
+    for (let idNumber = 0; idNumber < displayItemsNumber; idNumber ++ ) {
+     let randomNumber = Math.floor(Math.random() * numberOfItems + 1)
+      numbersOfItmesToBuyId.push(randomNumber); 
+       itemsToBuy.map(item => {
+        if (item.id == randomNumber) {
+          item.canBeBuy = true
+        } return item
+        })
+      }
+      this.setState({numbersOfItmesToBuyId, itemsToBuy})
+    }
 
   handleGameDuration = e => {
   this.setState({gameDuration: e.target.value})
@@ -222,12 +254,11 @@ class App extends Component {
         addMaxItems={this.handleIncreaseAmountToMax}
         />}
 
-        {/* {this.state.gameStarted && <ItemsToBuy
+        {this.state.gameStarted && <ItemsToBuy
         itemsToBuy={this.state.itemsToBuy}
-        addOneItem={this.handleAmountChange}
-        />} */}
-
-
+        onBuyItem={this.handleCanBeBuyItemsId}
+        />}
+        
     
       </div>
     );

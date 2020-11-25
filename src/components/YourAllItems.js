@@ -13,7 +13,7 @@ const YourAllItems = (props) => {
   />)
   return ( 
     <div style={{textAlign:'left'}}>
-      <h3>Posiadane przedmioty</h3>
+      <h3>Your all items</h3>
       <ul style={{listStyle: 'none', }}>
         {items}
       </ul>
