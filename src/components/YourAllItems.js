@@ -1,24 +1,22 @@
-import React from 'react';
+import React from "react";
 import YourSingleItem from "./YourSingleItem";
 
-
-const YourAllItems = (props) => {
-  const items = props.items.map(item => <YourSingleItem
-  key={item.id}
-  item={item}
-  addOneItem={props.addOneItem}
-  addTenItems={props.addTenItems}
-  addMaxItems={props.addMaxItems}
-
-  />)
-  return ( 
-    <div style={{textAlign:'left'}}>
+const YourAllItems = (items, addOneItem, addTenItems, addMaxItems) => {
+  items = items.map((item) => (
+    <YourSingleItem
+      key={item.id}
+      item={item}
+      addOneItem={addOneItem}
+      addTenItems={addTenItems}
+      addMaxItems={addMaxItems}
+    />
+  ));
+  return (
+    <div style={{ textAlign: "left" }}>
       <h3>Your all items</h3>
-      <ul style={{listStyle: 'none', }}>
-        {items}
-      </ul>
+      <ul style={{ listStyle: "none" }}>{items}</ul>
     </div>
-   );
-}
- 
+  );
+};
+
 export default YourAllItems;

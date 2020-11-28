@@ -1,16 +1,16 @@
-import React from 'react'
+import React from "react";
 
-const ItemToBuy = (props) => {
-  return ( 
-    <div>
+const ItemToBuy = ({ itemToBuy, onBuyItem }) => {
+  return (
+    <div>
       <li>
-        {props.itemToBuy.name}
-        <button onClick={() => props.onBuyItem(props.itemToBuy.canBeBuy)}>{"+"}</button>
-        <button >{"++"}</button>
-        <button >{">>"}</button>
+        {itemToBuy.name}
+        <button onClick={() => onBuyItem(itemToBuy.canBeBuy)}>{"+"}</button>
+        <button>{"++"}</button>
+        <button>{">>"}</button>
       </li>
-  </div> );
-}
-   
- 
+       {" "}
+    </div>
+  );
+};
 export default ItemToBuy;

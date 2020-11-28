@@ -1,21 +1,18 @@
-import React from 'react';
-import Location from './Location'
+import React from "react";
+import Location from "./Location";
 
-const Locations = (props) => {
-  const locations = props.locations.map(location =>
+const Locations = ({ locations, changeLocation }) => {
+  locations = locations.map(({ id, name, isActive }) => (
     <Location
-    key={location.id}
-    id={location.id}
-    name={location.name}
-    active={location.isActive}
-    changeLocation={props.changeLocation}
-    />)
+      key={id}
+      id={id}
+      name={name}
+      active={isActive}
+      changeLocation={changeLocation}
+    />
+  ));
 
-  return ( 
-    <div>
-      {locations}
-    </div>
-   );
-}
- 
+  return <div>{locations}</div>;
+};
+
 export default Locations;
