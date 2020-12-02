@@ -1,17 +1,16 @@
-import React from "react";
+import React from 'react';
 
-const Location = ({ name, active, id, changeLocation }) => {
-  const BtnStyle = { backgroundColor: "#61DBFB" };
+const Location = (props) => {
+const BtnStyle = {backgroundColor: '#61DBFB'}
 
-  return (
+  return ( 
     <button
-      style={active ? BtnStyle : {}}
-      onClick={() => changeLocation(id)}
-      disabled={active}
-    >
-      {name}
+    style={props.active ? BtnStyle : {}}
+    onClick={() => props.changeLocation(props.id)}
+    disabled = {props.active}>
+    {props.name}
     </button>
-  );
-};
-
+   );
+}
+ 
 export default Location;
