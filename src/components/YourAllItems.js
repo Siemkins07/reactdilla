@@ -1,24 +1,23 @@
-import React from 'react';
+import React from "react";
 import YourSingleItem from "./YourSingleItem";
 
-
 const YourAllItems = (props) => {
-  const items = props.items.map(item => <YourSingleItem
-  key={item.id}
-  item={item}
-  addOneItem={props.addOneItem}
-  addTenItems={props.addTenItems}
-  addMaxItems={props.addMaxItems}
-
-  />)
-  return ( 
-    <div style={{textAlign:'left'}}>
-      <h3>Your all items</h3>
-      <ul style={{listStyle: 'none', }}>
-        {items}
-      </ul>
+  const myFilteredItems = props.items
+    .filter((item) => item.amount > 0)
+    .map((item) => (
+      <YourSingleItem
+        key={item.id}
+        item={item}
+        sellOneItem={props.sellOneItem}
+        sellTenItems={props.sellTenItems}
+        sellMaxItems={props.sellMaxItems}
+      />
+    ));
+  return (
+    <div style={{ textAlign: "left" }}>
+            <h3>Your items</h3>     {" "}
+      <ul style={{ listStyle: "none" }}>        {myFilteredItems}      </ul>   {" "}
     </div>
-   );
-}
- 
+  );
+};
 export default YourAllItems;

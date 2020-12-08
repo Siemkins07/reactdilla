@@ -15,43 +15,44 @@ class App extends Component {
     dayNumber: 0,
     health: 100,
     isAlive: true,
-    money: 100,
+    money: 200,
     numbersOfItmesToBuyId: [],
     gameEnd: false,
     debt: 100,
+    bank: 0,
     debtRepayment: 0,
     locations: [
-      { id: 1, name: "loca_1", isActive: false },
-      { id: 2, name: "loca_2", isActive: false },
-      { id: 3, name: "loca_3", isActive: false },
-      { id: 4, name: "loca_4", isActive: false },
-      { id: 5, name: "loca_5", isActive: false },
-      { id: 6, name: "loca_6", isActive: false },
+      { id: 1, name: "Google", isActive: false },
+      { id: 2, name: "Amazon", isActive: false },
+      { id: 3, name: "Code Two", isActive: false },
+      { id: 4, name: "Facebook", isActive: false },
+      { id: 5, name: "Codewise", isActive: false },
+      { id: 6, name: "Techland", isActive: false },
     ],
     items: [
-      { id: 1, name: "item_1", amount: 0, canBeSold: false, cost: 0 },
-      { id: 2, name: "item_2", amount: 0, canBeSold: false, cost: 0 },
-      { id: 3, name: "item_3", amount: 0, canBeSold: false, cost: 0 },
-      { id: 4, name: "item_4", amount: 0, canBeSold: false, cost: 0 },
-      { id: 5, name: "item_5", amount: 0, canBeSold: false, cost: 0 },
-      { id: 6, name: "item_6", amount: 0, canBeSold: false, cost: 0 },
-      { id: 7, name: "item_7", amount: 0, canBeSold: false, cost: 0 },
-      { id: 8, name: "item_8", amount: 0, canBeSold: false, cost: 0 },
-      { id: 9, name: "item_9", amount: 0, canBeSold: false, cost: 0 },
-      { id: 10, name: "item_10", amount: 0, canBeSold: false, cost: 0 },
+      { id: 1, name: "JSX", amount: 0, canBeSold: false, cost: 0 },
+      { id: 2, name: "Function", amount: 0, canBeSold: false, cost: 0 },
+      { id: 3, name: "Render", amount: 0, canBeSold: false, cost: 0 },
+      { id: 4, name: "State", amount: 0, canBeSold: false, cost: 0 },
+      { id: 5, name: "This", amount: 0, canBeSold: false, cost: 0 },
+      { id: 6, name: "Component", amount: 0, canBeSold: false, cost: 0 },
+      { id: 7, name: "Props", amount: 0, canBeSold: false, cost: 0 },
+      { id: 8, name: "Lifecycle", amount: 0, canBeSold: false, cost: 0 },
+      { id: 9, name: "Hooks", amount: 0, canBeSold: false, cost: 0 },
+      { id: 10, name: "Redux", amount: 0, canBeSold: false, cost: 0 },
     ],
 
     itemsToBuy: [
-      { id: 1, name: "item_1", amount: 0, canBeBuy: false, cost: 1 },
-      { id: 2, name: "item_2", amount: 0, canBeBuy: false, cost: 2 },
-      { id: 3, name: "item_3", amount: 0, canBeBuy: false, cost: 3 },
-      { id: 4, name: "item_4", amount: 0, canBeBuy: false, cost: 4 },
-      { id: 5, name: "item_5", amount: 0, canBeBuy: false, cost: 5 },
-      { id: 6, name: "item_6", amount: 0, canBeBuy: false, cost: 6 },
-      { id: 7, name: "item_7", amount: 0, canBeBuy: false, cost: 7 },
-      { id: 8, name: "item_8", amount: 0, canBeBuy: false, cost: 8 },
-      { id: 9, name: "item_9", amount: 0, canBeBuy: false, cost: 9 },
-      { id: 10, name: "item_10", amount: 0, canBeBuy: false, cost: 10 },
+      { id: 1, name: "JSX", amount: 0, canBeBuy: false, cost: 10 },
+      { id: 2, name: "Function", amount: 0, canBeBuy: false, cost: 15 },
+      { id: 3, name: "Render", amount: 0, canBeBuy: false, cost: 18 },
+      { id: 4, name: "State", amount: 0, canBeBuy: false, cost: 20 },
+      { id: 5, name: "This", amount: 0, canBeBuy: false, cost: 25 },
+      { id: 6, name: "Component", amount: 0, canBeBuy: false, cost: 30 },
+      { id: 7, name: "Props", amount: 0, canBeBuy: false, cost: 35 },
+      { id: 8, name: "Lifecycle", amount: 0, canBeBuy: false, cost: 45 },
+      { id: 9, name: "Hooks", amount: 0, canBeBuy: false, cost: 45 },
+      { id: 10, name: "Redux", amount: 0, canBeBuy: false, cost: 80 },
     ],
 
     messages: [
@@ -73,7 +74,6 @@ class App extends Component {
     ],
     members: [],
   };
-
   componentDidMount() {} //RESET FUNCTIONS
 
   resetLocation = () => {
@@ -130,21 +130,13 @@ class App extends Component {
     this.resetLocation();
     this.resetMsgStatus();
     this.handleShowMessage();
+    this.handleTransferAmount();
     this.handleCanBeBuyItemsId();
     this.handleSwitchCanBeSold();
-    this.handleTransferAmount();
     this.handleChangeItemToBuyCost();
     this.handleSetCostToItems();
     this.handleChangeDebt();
     this.handleHealthChange();
-  };
-
-  handleChangeDebt = () => {
-    if (this.state.debt > 0) {
-      this.setState({
-        debt: this.state.debt + parseInt(`${this.state.debt * 0.05}`),
-      });
-    }
   };
 
   handleChangeLocation = (id) => {
@@ -160,7 +152,23 @@ class App extends Component {
       dayNumber: this.state.dayNumber + 1,
       money: this.state.money - 5,
     });
-  };
+  }; //if you want see messages more often change condition to >= 3
+
+  handleShowMessage = () => {
+    this.resetMsgStatus();
+    const randomNumber = Math.floor(Math.random() * 6) + 1;
+    if (randomNumber > 4) {
+      const randomMsg =
+        Math.floor(Math.random() * this.state.messages.length) + 1;
+      const messages = this.state.messages.map((message) => {
+        if (randomMsg === message.id) {
+          message.isShown = true;
+        }
+        return message;
+      });
+      this.setState({ messages });
+    }
+  }; // SELL ITEMS
 
   handleDecreaseAmountBy1 = (item) => {
     const items = [...this.state.items];
@@ -175,18 +183,6 @@ class App extends Component {
     }
   };
 
-  handleIncreaseAmountBy1BUY = (itemToBuy) => {
-    const itemsToBuy = [...this.state.itemsToBuy]; // const items = [...this.state.items]
-    const index = itemsToBuy.indexOf(itemToBuy);
-    itemsToBuy[index] = { ...itemToBuy };
-    if (this.state.money >= itemToBuy.cost) {
-      itemsToBuy[index].amount++;
-      this.setState({ itemsToBuy, money: this.state.money - itemToBuy.cost });
-    } else {
-      alert("you have not enough money BB");
-    }
-  };
-
   handleDecreaseAmountBy10 = (item) => {
     const items = [...this.state.items];
     const index = items.indexOf(item);
@@ -196,6 +192,30 @@ class App extends Component {
       this.setState({ items, money: this.state.money + item.cost * 10 });
     } else {
       alert("you can't sell more than you have");
+    }
+  };
+  handleDecreaseAmountToZero = (item) => {
+    const max = Math.floor(item.amount * item.cost);
+    const items = [...this.state.items];
+    const index = items.indexOf(item);
+    items[index] = { ...item };
+    if (item.canBeSold && item.amount > 0) {
+      items[index].amount -= item.amount;
+      this.setState({ items, money: this.state.money + max });
+    } else {
+      alert("you can't sell this item now");
+    }
+  };
+  // BUY ITEMS
+  handleIncreaseAmountBy1BUY = (itemToBuy) => {
+    const itemsToBuy = [...this.state.itemsToBuy]; // const items = [...this.state.items]
+    const index = itemsToBuy.indexOf(itemToBuy);
+    itemsToBuy[index] = { ...itemToBuy };
+    if (this.state.money >= itemToBuy.cost) {
+      itemsToBuy[index].amount++;
+      this.setState({ itemsToBuy, money: this.state.money - itemToBuy.cost });
+    } else {
+      alert("you have not enough money BB");
     }
   };
 
@@ -213,24 +233,12 @@ class App extends Component {
       alert("you have not enough money BB");
     }
   };
-  handleDecreaseAmountToZero = (item) => {
-    const max = Math.floor(item.amount * item.cost);
-    const items = [...this.state.items];
-    const index = items.indexOf(item);
-    items[index] = { ...item };
-    if (item.canBeSold && item.amount > 0) {
-      items[index].amount -= item.amount;
-      this.setState({ items, money: this.state.money + max });
-    } else {
-      alert("you can't sell this item now");
-    }
-  };
-
   handleIncreaseAmountToMaxBUY = (itemToBuy) => {
     const max = Math.floor(this.state.money / itemToBuy.cost);
     const itemsToBuy = [...this.state.itemsToBuy];
     const index = itemsToBuy.indexOf(itemToBuy);
     itemsToBuy[index] = { ...itemToBuy };
+
     if (this.state.money >= max * itemToBuy.cost && max > 0) {
       itemsToBuy[index].amount += max;
       this.setState({
@@ -240,24 +248,9 @@ class App extends Component {
     } else {
       alert("you have not enough money BB");
     }
-  }; //if you want see messages more often change condition to >= 3
-
-  handleShowMessage = () => {
-    this.resetMsgStatus();
-    const randomNumber = Math.floor(Math.random() * 6) + 1;
-    if (randomNumber > 4) {
-      const randomMsg =
-        Math.floor(Math.random() * this.state.messages.length) + 1;
-      const messages = this.state.messages.map((message) => {
-        if (randomMsg === message.id) {
-          message.isShown = true;
-        }
-        return message;
-      });
-      this.setState({ messages });
-    }
   };
 
+  //OPERATION ON ITEMS TO BUY AND ITEMS TO SELL
   handleCanBeBuyItemsId = () => {
     this.resetItemsToBuy();
     this.resetCanBeBuy();
@@ -271,7 +264,7 @@ class App extends Component {
       numbersOfItmesToBuyId.push(randomNumber);
       itemsToBuy.map((item) => {
         if (item.id == randomNumber) {
-          item.canBeBuy = true; // item.cost += 3
+          item.canBeBuy = true;
         }
         return item;
       });
@@ -280,7 +273,6 @@ class App extends Component {
   };
 
   //switch canBeSold if canBeBuy is true
-
   handleSwitchCanBeSold = () => {
     this.resetCanBeSold();
     const itemsToBuy = [...this.state.itemsToBuy];
@@ -351,9 +343,8 @@ class App extends Component {
 
   handleChangeItemToBuyCost = () => {
     const itemsToBuy = [...this.state.itemsToBuy];
-    const defaultCost = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const defaultCost = [10, 15, 18, 20, 25, 30, 35, 45, 45, 80];
     const mappedName = itemsToBuy.map((item) => item.name);
-    // const mappedCost = itemsToBuy.map(item => item.cost)
 
     itemsToBuy.map((item) => {
       for (let i = 0; i < itemsToBuy.length; i++) {
@@ -376,46 +367,26 @@ class App extends Component {
     this.setState({ itemsToBuy });
   };
 
-  handleGameDuration = (e) => {
-    this.setState({ gameDuration: e.target.value });
-  };
+  handleCancelBuy = (itemToBuy) => {
+    const itemsToBuy = [...this.state.itemsToBuy];
+    const index = itemsToBuy.indexOf(itemToBuy);
+    itemsToBuy[index] = { ...itemToBuy };
 
-  handleEndGame = () => {
-    console.log("kikk");
-    const days = this.state.dayNumber;
-    if (this.state.gameDuration === "1 MO" && this.state.dayNumber == 30) {
-      this.setState({ gameEnd: true });
-      return alert("end game");
-    } else if (
-      this.state.gameDuration === "3 MOS" &&
-      this.state.dayNumber == 90
-    ) {
-      this.setState({ gameEnd: true });
-      return alert("end game");
-    } else if (
-      this.state.gameDuration === "6 MOS" &&
-      this.state.dayNumber == 180
-    ) {
-      this.setState({ gameEnd: true });
-      return alert("end game");
-    } else if (
-      this.state.gameDuration === "12 MOS" &&
-      this.state.dayNumber == 365
-    ) {
-      this.setState({ gameEnd: true });
-      return alert("end game");
+    if (itemToBuy.canBeBuy && itemToBuy.amount > 0) {
+      itemsToBuy[index].amount = 0;
     }
+    this.setState({
+      itemsToBuy,
+      money: this.state.money + itemToBuy.cost * itemToBuy.amount,
+    });
   };
-
-  setPlayerName = (e) => {
-    e.preventDefault();
-    this.setState({ playerName: e.target.value });
-  };
-
-  handleStartGame = () => {
-    if (this.state.playerName.length >= 3 && this.state.gameDuration) {
-      this.setState({ gameStarted: !this.state.gameStarted });
-    } else return alert(`don't be pussy`);
+  //FINANCIAL OPERATIONS
+  handleChangeDebt = () => {
+    if (this.state.debt > 0) {
+      this.setState({
+        debt: Math.round(this.state.debt + this.state.debt * 0.05),
+      });
+    }
   };
 
   handleSetDebtRepayment = (e) => {
@@ -431,10 +402,74 @@ class App extends Component {
     }
   };
 
+  handleChangeLoan = (e) => {
+    e.preventDefault();
+    this.setState({ bank: parseInt(e.target.value) });
+  };
+
+  handleGetBorrow = () => {
+    const input = document.querySelector(".loan");
+    if (
+      this.state.debt + this.state.bank <= this.state.money / 2 &&
+      input.value !== 0
+    ) {
+      this.setState({
+        debt: this.state.debt + this.state.bank,
+        money: this.state.money + this.state.bank,
+        bank: 0,
+      });
+    } else alert("you are insolvent");
+  };
+
+  handleGetBorrowMax = () => {
+    const { money, debt, bank } = this.state;
+    const maxBorrowValue = Math.floor(money / 2 - debt);
+    const input = document.querySelector(".loan");
+    if (maxBorrowValue < money - debt) {
+      input.value = maxBorrowValue;
+      this.setState({ bank: maxBorrowValue });
+    }
+  };
+
+  //START AND END GAME + HEALTH
+  setPlayerName = (e) => {
+    // e.preventDefault()
+    this.setState({ playerName: e.target.value });
+  };
+
+  handleGameDuration = (e) => {
+    console.log(this.gameDuration);
+    this.setState({ gameDuration: e.target.value });
+  };
+
+  handleStartGame = () => {
+    if (this.state.playerName.length >= 3 && this.state.gameDuration) {
+      this.setState({ gameStarted: !this.state.gameStarted, gameEnd: false });
+    } else return alert(`don't be pussy`);
+  };
+
+  handleEndGame = () => {
+    // this.setState({playerName: '', gameDuration: ''})
+    const days = this.state.dayNumber;
+    if (this.state.gameDuration === "1 MO" && this.state.dayNumber == 30) {
+      this.setState({ gameEnd: true });
+      return alert("end game");
+    } else if (this.state.gameDuration === "3 MOS" && days == 90) {
+      this.setState({ gameEnd: true });
+      return alert("end game");
+    } else if (this.state.gameDuration === "6 MOS" && days == 180) {
+      this.setState({ gameEnd: true });
+      return alert("end game");
+    } else if (this.state.gameDuration === "12 MOS" && days == 365) {
+      this.setState({ gameEnd: true });
+      return alert("end game");
+    }
+  };
+
   handleHealthChange = () => {
     console.log(this.state.health, "zrowie");
-    if (this.state.health > 5 && this.state.debt > 0) {
-      this.setState({ health: this.state.health - 5 });
+    if (this.state.health > 5 && this.state.debt > 100) {
+      this.setState({ health: this.state.health - 2 });
     } else if (this.state.health <= 5 && this.state.debt > 0) {
       this.setState({ health: 0, debt: this.state.debt, gameEnd: true });
       alert("you're done with debt");
@@ -445,21 +480,16 @@ class App extends Component {
       this.setState({ health: 0, debt: this.state.debt, gameEnd: true });
       alert("you're done with no money");
     }
+
+    if (
+      this.state.health < 100 &&
+      this.state.money > 0 &&
+      this.state.debt < 100
+    ) {
+      this.setState({ health: this.state.health + 1 });
+    }
   };
 
-  handleCancelBuy = (itemToBuy) => {
-    console.log("click");
-    const itemsToBuy = [...this.state.itemsToBuy];
-    const index = itemsToBuy.indexOf(itemToBuy);
-    itemsToBuy[index] = { ...itemToBuy };
-    if (itemToBuy.canBeBuy && itemToBuy.amount > 0) {
-      itemsToBuy[index].amount = 0;
-    }
-    this.setState({
-      itemsToBuy,
-      money: this.state.money + itemToBuy.cost * itemToBuy.amount,
-    });
-  };
   render() {
     const { locations } = this.state;
     return (
@@ -469,18 +499,63 @@ class App extends Component {
         {this.state.gameStarted && <h3>health: {this.state.health}</h3>}       {" "}
         {this.state.gameStarted && this.state.debt > 0 && (
           <h3>
-            debt: {this.state.debt}
-                   {" "}
+            debt: {this.state.debt}       {" "}
             <input
+              list="tickmarks"
               title={this.state.debtRepayment}
               type="range"
               min="0"
               max={this.state.debt}
               onChange={this.handleSetDebtRepayment}
             />
+                   {" "}
+            <datalist id="tickmarks">
+                        <option value={0}>0%</option>         {" "}
+              <option value={Math.floor((this.state.debt * 1) / 10)}></option> 
+                     {" "}
+              <option value={Math.floor((this.state.debt * 2) / 10)}></option> 
+                     {" "}
+              <option value={Math.floor((this.state.debt * 3) / 10)}></option> 
+                     {" "}
+              <option value={Math.floor((this.state.debt * 4) / 10)}></option> 
+                     {" "}
+              <option value={Math.floor((this.state.debt * 5) / 10)}>
+                50%
+              </option>
+                       {" "}
+              <option value={Math.floor((this.state.debt * 6) / 10)}></option> 
+                     {" "}
+              <option value={Math.floor((this.state.debt * 7) / 10)}></option> 
+                     {" "}
+              <option value={Math.floor((this.state.debt * 8) / 10)}></option> 
+                     {" "}
+              <option value={Math.floor((this.state.debt * 9) / 10)}></option> 
+                      <option value={Math.floor(this.state.debt)}>100%</option> 
+                   {" "}
+            </datalist>
                     <button onClick={this.handleDebtRepayment}>Go!</button>     
              {" "}
           </h3>
+        )}
+               {" "}
+        {this.state.gameStarted && (
+          <div>
+                     
+            <label htmlFor="loan">
+              {" "}
+              Get loan:          
+              <input
+                name="loan"
+                className="loan"
+                type="number"
+                title="loan"
+                value={this.state.bank}
+                onChange={this.handleChangeLoan}
+              />
+            </label>
+                     <button onClick={this.handleGetBorrow}>Borrow</button>     
+               <button onClick={this.handleGetBorrowMax}>MAX</button>         
+          </div>
         )}
                        {" "}
         {!this.state.gameStarted && (
@@ -531,7 +606,12 @@ class App extends Component {
         )}
                
         {this.state.gameEnd && (
-          <EndGame money={this.state.money} level={this.state.level} />
+          <EndGame
+            money={this.state.money}
+            level={this.state.level}
+            startGame={this.handleStartGame}
+            gameStarted={this.state.gameStarted}
+          />
         )}
                          {" "}
       </div>
