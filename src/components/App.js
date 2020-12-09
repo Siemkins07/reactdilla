@@ -74,8 +74,9 @@ class App extends Component {
     ],
     members: [],
   };
-  componentDidMount() {} //RESET FUNCTIONS
+  componentDidMount() {}
 
+  //RESET FUNCTIONS
   resetLocation = () => {
     const locations = this.state.locations.map((location) => {
       if (location.isActive === true) {
@@ -263,7 +264,7 @@ class App extends Component {
       let randomNumber = Math.floor(Math.random() * numberOfItems + 1);
       numbersOfItmesToBuyId.push(randomNumber);
       itemsToBuy.map((item) => {
-        if (item.id == randomNumber) {
+        if (item.id === randomNumber) {
           item.canBeBuy = true;
         }
         return item;
@@ -404,15 +405,13 @@ class App extends Component {
 
   handleChangeLoan = (e) => {
     e.preventDefault();
-    this.setState({ bank: parseInt(e.target.value) });
+    this.setState({ bank: parseInt(e.target.value, 10) });
   };
 
   handleGetBorrow = () => {
+    const { debt, money, bank } = this.state;
     const input = document.querySelector(".loan");
-    if (
-      this.state.debt + this.state.bank <= this.state.money / 2 &&
-      input.value !== 0
-    ) {
+    if (debt + bank <= money && debt <= money / 2 && input.value !== 0) {
       this.setState({
         debt: this.state.debt + this.state.bank,
         money: this.state.money + this.state.bank,
@@ -422,12 +421,14 @@ class App extends Component {
   };
 
   handleGetBorrowMax = () => {
-    const { money, debt, bank } = this.state;
-    const maxBorrowValue = Math.floor(money / 2 - debt);
-    const input = document.querySelector(".loan");
-    if (maxBorrowValue < money - debt) {
-      input.value = maxBorrowValue;
+    const { money, debt } = this.state;
+    // const input = document.querySelector('.loan');
+    const maxBorrowValue = Math.floor(money - debt);
+    if (debt / money <= 1 / 2) {
       this.setState({ bank: maxBorrowValue });
+    } else {
+      this.setState({ bank: 0 });
+      alert("First earn more money or repayment some debt");
     }
   };
 
@@ -438,8 +439,77 @@ class App extends Component {
   };
 
   handleGameDuration = (e) => {
-    console.log(this.gameDuration);
     this.setState({ gameDuration: e.target.value });
+  };
+
+  handleResetGameAndState = () => {
+    const data = {
+      gameStarted: false,
+      playerName: "",
+      gameDuration: "",
+      dayNumber: 0,
+      health: 100,
+      isAlive: true,
+      money: 200,
+      numbersOfItmesToBuyId: [],
+      gameEnd: false,
+      debt: 100,
+      bank: 0,
+      debtRepayment: 0,
+      locations: [
+        { id: 1, name: "Google", isActive: false },
+        { id: 2, name: "Amazon", isActive: false },
+        { id: 3, name: "Code Two", isActive: false },
+        { id: 4, name: "Facebook", isActive: false },
+        { id: 5, name: "Codewise", isActive: false },
+        { id: 6, name: "Techland", isActive: false },
+      ],
+      items: [
+        { id: 1, name: "JSX", amount: 0, canBeSold: false, cost: 0 },
+        { id: 2, name: "Function", amount: 0, canBeSold: false, cost: 0 },
+        { id: 3, name: "Render", amount: 0, canBeSold: false, cost: 0 },
+        { id: 4, name: "State", amount: 0, canBeSold: false, cost: 0 },
+        { id: 5, name: "This", amount: 0, canBeSold: false, cost: 0 },
+        { id: 6, name: "Component", amount: 0, canBeSold: false, cost: 0 },
+        { id: 7, name: "Props", amount: 0, canBeSold: false, cost: 0 },
+        { id: 8, name: "Lifecycle", amount: 0, canBeSold: false, cost: 0 },
+        { id: 9, name: "Hooks", amount: 0, canBeSold: false, cost: 0 },
+        { id: 10, name: "Redux", amount: 0, canBeSold: false, cost: 0 },
+      ],
+
+      itemsToBuy: [
+        { id: 1, name: "JSX", amount: 0, canBeBuy: false, cost: 10 },
+        { id: 2, name: "Function", amount: 0, canBeBuy: false, cost: 15 },
+        { id: 3, name: "Render", amount: 0, canBeBuy: false, cost: 18 },
+        { id: 4, name: "State", amount: 0, canBeBuy: false, cost: 20 },
+        { id: 5, name: "This", amount: 0, canBeBuy: false, cost: 25 },
+        { id: 6, name: "Component", amount: 0, canBeBuy: false, cost: 30 },
+        { id: 7, name: "Props", amount: 0, canBeBuy: false, cost: 35 },
+        { id: 8, name: "Lifecycle", amount: 0, canBeBuy: false, cost: 45 },
+        { id: 9, name: "Hooks", amount: 0, canBeBuy: false, cost: 45 },
+        { id: 10, name: "Redux", amount: 0, canBeBuy: false, cost: 80 },
+      ],
+
+      messages: [
+        { id: 1, copy: "message_1", isShown: false },
+        { id: 2, copy: "message_2", isShown: false },
+        { id: 3, copy: "message_3", isShown: false },
+        { id: 4, copy: "message_4", isShown: false },
+        { id: 5, copy: "message_5", isShown: false },
+      ],
+
+      level: [
+        "intern",
+        "junior",
+        "regular",
+        "senior",
+        "lead",
+        "architect",
+        "master",
+      ],
+      members: [],
+    };
+    this.setState({ ...data });
   };
 
   handleStartGame = () => {
@@ -451,23 +521,22 @@ class App extends Component {
   handleEndGame = () => {
     // this.setState({playerName: '', gameDuration: ''})
     const days = this.state.dayNumber;
-    if (this.state.gameDuration === "1 MO" && this.state.dayNumber == 30) {
+    if (this.state.gameDuration === "1 MO" && this.state.dayNumber === 30) {
       this.setState({ gameEnd: true });
       return alert("end game");
-    } else if (this.state.gameDuration === "3 MOS" && days == 90) {
+    } else if (this.state.gameDuration === "3 MOS" && days === 90) {
       this.setState({ gameEnd: true });
       return alert("end game");
-    } else if (this.state.gameDuration === "6 MOS" && days == 180) {
+    } else if (this.state.gameDuration === "6 MOS" && days === 180) {
       this.setState({ gameEnd: true });
       return alert("end game");
-    } else if (this.state.gameDuration === "12 MOS" && days == 365) {
+    } else if (this.state.gameDuration === "12 MOS" && days === 365) {
       this.setState({ gameEnd: true });
       return alert("end game");
     }
   };
 
   handleHealthChange = () => {
-    console.log(this.state.health, "zrowie");
     if (this.state.health > 5 && this.state.debt > 100) {
       this.setState({ health: this.state.health - 2 });
     } else if (this.state.health <= 5 && this.state.debt > 0) {
@@ -487,6 +556,43 @@ class App extends Component {
       this.state.debt < 100
     ) {
       this.setState({ health: this.state.health + 1 });
+    }
+  };
+
+  handleRestoreHealth = () => {
+    const { health, money } = this.state;
+    const restorePoints = 100 - health;
+
+    switch (true) {
+      case restorePoints > 0 &&
+        restorePoints <= 15 &&
+        money >= restorePoints * 3:
+        this.setState({ money: money - restorePoints * 3, health: 100 });
+        break;
+      case restorePoints > 15 &&
+        restorePoints <= 30 &&
+        money >= restorePoints * 4:
+        this.setState({ money: money - restorePoints * 4, health: 100 });
+        break;
+      case restorePoints > 31 &&
+        restorePoints <= 50 &&
+        money >= restorePoints * 5:
+        this.setState({ money: money - restorePoints * 5, health: 100 });
+        break;
+      case restorePoints > 50 && money >= restorePoints * 10:
+        this.setState({ money: money - restorePoints * 10, health: 100 });
+        break;
+      default:
+        // eslint-disable-next-line no-unused-expressions
+        restorePoints > 0 && restorePoints <= 15
+          ? alert(`cost of treatment ${restorePoints * 3}`)
+          : null || (restorePoints > 15 && restorePoints <= 30)
+          ? alert(`cost of treatment ${restorePoints * 4}`)
+          : null || (restorePoints > 31 && restorePoints <= 50)
+          ? alert(`cost of treatment ${restorePoints * 5}`)
+          : null || restorePoints > 50
+          ? alert(`cost of treatment ${restorePoints * 10}`)
+          : null;
     }
   };
 
@@ -548,16 +654,20 @@ class App extends Component {
                 name="loan"
                 className="loan"
                 type="number"
+                min="0"
                 title="loan"
-                value={this.state.bank}
+                value={this.state.bank !== 0 ? this.state.bank : ""}
                 onChange={this.handleChangeLoan}
               />
             </label>
                      <button onClick={this.handleGetBorrow}>Borrow</button>     
-               <button onClick={this.handleGetBorrowMax}>MAX</button>         
+               <button onClick={this.handleGetBorrowMax}>MAX</button>
+                     <br />         
+            <button onClick={this.handleRestoreHealth}>Visit Hospital</button>  
+                     
           </div>
         )}
-                       {" "}
+                <br />               {" "}
         {!this.state.gameStarted && (
           <NewGame
             playerName={this.state.playerName}
@@ -609,8 +719,9 @@ class App extends Component {
           <EndGame
             money={this.state.money}
             level={this.state.level}
-            startGame={this.handleStartGame}
             gameStarted={this.state.gameStarted}
+            startGame={this.handleStartGame}
+            resetGame={this.handleResetGameAndState}
           />
         )}
                          {" "}
