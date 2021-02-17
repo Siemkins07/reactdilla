@@ -1,0 +1,16 @@
+.App {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f2fcfe, #1c92d2);
+  text-align: center;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  height: 72px;
+  width: 100%;
+}
+
+.logo h1 {
+  margin: 0;
+  line-height: 72px;
+}
