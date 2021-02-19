@@ -14,7 +14,7 @@ Each day costs you a certain amount of money.\
 On any day, you can only buy or sell what is currently available.\
 You can have a limited amount of goods.\
 By visiting the hospital you can improve your health.\
-You can take out loan to buy more items at an attractive price (good but risky option).\
+You can take out loan to buy more items at an attractive price (good but risky option).
 
 ## End game
 
@@ -26,7 +26,7 @@ Adding items to increase max available space.\
 Added difficulty level (manipulation itnital cash, debt level, cost of living a single day and price of items.\
 Added Top10 results (including difficulty level and game duration).\
 __ \
-Adding and improve styles, routing, maybe fake backend for store best results.\
+Adding and improve styles, routing, maybe fake backend for store best results.
 
 
 
