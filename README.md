@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# About Reactdilla
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application is inspired by a game from 2000 called Maxdilla, where you played as a drug dealer.
+In Reactdilla, you start the game as a wannabe developer who has dreamed of becoming the best React developer in the world.
 
-## Available Scripts
+## The main goal
 
-In the project directory, you can run:
+Try to get as many points (cash) as possible. The higher number of points (cash), the higher your level as a developer will be. 
 
-### `npm start`
+## Mechanics
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+You start the game with debt, which increases by interest every day
+Each day costs you a certain amount of money
+On any day, you can only buy or sell what is currently available
+You can have a limited amount of goods
+By visiting the hospital you can improve your health
+You can take out loan to buy more items at an attractive price (good but risky option)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## End game
 
-### `npm test`
+The game ends when your helth drops to 0 or when time selected at the beginning of the game runs out
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### In plan
+Addition of random events on random days
+Adding items to increase max available space
+Added difficulty level (manipulation itnital cash, debt level, cost of living a single day and price of items
+Added Top10 results (including difficulty level and game duration)
+__
+Adding and improve styles, routing, maybe fake backend for store best results
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
